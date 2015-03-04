@@ -84,7 +84,11 @@ origin   https://github.com/vlad/planets.git (push)
 origin   https://github.com/vlad/planets.git (fetch)
 ~~~
 
-Remember: we haven't actually put anything in that remote repository yet. So far, we've only told our local Git repository where the remote one is located. So let's push our local repo to the remote `origin`:
+Remember: we haven't actually put anything in that remote repository yet.
+
+![Freshly-Made GitHub Repository](fig/git-freshly-made-github-repo.svg)
+
+So far, we've only told our local Git repository where the remote one is located. So let's push our local repo to the remote `origin`:
 
 ~~~ {.bash}
 $ git push origin master
@@ -112,50 +116,11 @@ Branch master set up to track remote branch master from origin.
 >
 > ![Branches let you note which trail of commits you're making](fig/branch.svg)
 >
-> The original trail of breadcrumbs, the sourdough ones in this analogy, have the default branch name of `master`. It's a good practice to keep `master` as the base branch of all the work you do in a repository, and make new branches to do work on new subprojects.
-
-> ## Proxy {.callout}
->
-> If the network you are connected to uses a proxy there is an chance that your last
-> command failed with "Could not resolve hostname" as the error message. To
-> solve this issue you need to tell Git about the proxy:
->
-> ~~~ {.bash}
-> $ git config --global http.proxy http://user:password@proxy.url
-> $ git config --global https.proxy http://user:password@proxy.url
-> ~~~
->
-> When you connect to another network that doesn't use a proxy you will need to
-> tell Git to disable the proxy using
->
-> ~~~ {.bash}
-> $ git config --global --unset http.proxy
-> $ git config --global --unset https.proxy
-> ~~~
-
-> ## Password Managers {.callout}
->
-> If your operating system has a password manager configured, `git push` will
-> try to use it when it needs your username and password. If you want to type
-> your username and password at the terminal instead of using
-> a password manager, type
->
-> ~~~ {.bash}
-> $ unset SSH_ASKPASS
-> ~~~
->
-> You may want to add this command at the end of your `~/.bashrc` to make it the
-> default behavior.
+> The original trail of breadcrumbs, the sourdough ones in this analogy, have the default branch name of `master`. All new repos start out on a branch named `master`. It's a good practice to keep `master` as the base branch of all the work you do in a repository, and make new branches to do work on new subprojects.
 
 Our local and remote repositories are now in this state:
 
 ![GitHub Repository After First Push](fig/github-repo-after-first-push.svg)
-
-> ## The '-u' Flag {.callout}
->
-> You may see a `-u` option used with `git push` in some documentation.
-> It is related to concepts we cover in our intermediate lesson,
-> and can safely be ignored for now.
 
 We can pull changes from the remote repository to the local one as well:
 
@@ -200,7 +165,7 @@ $ git clone https://github.com/vlad/planets.git
 
 Replace 'vlad' with your partner's username (the one who owns the repository).
 
-`git clone` creates a fresh local copy of a remote repository.
+`git clone` creates a copy of a repository.
 
 ![After Creating Clone of Repository](fig/github-collaboration.svg)
 
