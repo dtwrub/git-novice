@@ -15,14 +15,19 @@ when we begin to collaborate with other people.
 We already have most of the machinery we need to do this;
 the only thing missing is to copy changes from one repository to another.
 
-Systems like Git allow us to move work between any two repositories.
-In practice,
-though,
-it's easiest to use one copy as a central hub,
-and to keep it on the web rather than on someone's laptop.
-Most programmers use hosting services like [GitHub](http://github.com) or [BitBucket](http://bitbucket.org)
-to hold those master copies;
-we'll explore the pros and cons of this in the final section of this lesson.
+Systems like Git allow us to move work between any two repositories. Remember, from Git's perspective, the two repositories are copies of each other (clones) which may be out of sync, but were once originally made from the same base repository. From the user's perspective, her own copy is the _local_ copy, and any other ones are _remote_ repositories.
+
+A service like Github acts as a central server for your repository, but it is basically just storing another copy of your repository. Github's copies are only special because we told Git that the Github version is special.
+
+![Every user has their own copy](fig/github.svg)
+
+So, if a user wants to make changes to a file in a repo that is under Git control, she can make changes to her own copy of the file and then tell Git to commit those changes in its  history. It saves the changes in her own copy of the repo on her own computer.
+
+If she wants another user to see her changes, though, she needs to tell that other user's Git copy that she made changes. This is called _pushing_ the commits to another repo. She can either push the changes directly to another user's copy, or she can push them to a centrally-designated remote repository, like one at Github.
+
+![Pushing synchronizes changes to a different copy](fig/push.svg)
+
+Retrieving the changes from a different copy of the repository is called _pulling_.
 
 Let's start by sharing the changes we've made to our current project with the world.
 Log in to GitHub,
@@ -47,43 +52,27 @@ $ cd planets
 $ git init
 ~~~
 
-Our local repository still contains our earlier work on `mars.txt`,
-but the remote repository on GitHub doesn't contain any files yet:
+We want the Github repository to reflect the contents of our local repository, so we have to connect the two repositories. We do this by making the GitHub repository a [remote](reference.html#remote) for the local repository.
 
-![Freshly-Made GitHub Repository](fig/git-freshly-made-github-repo.svg)
+Right now, the Github repository is just an empty repo with nothing in it. We want to tell Git where it is and that we want it to be synchronized with our local repo.
 
-The next step is to connect the two repositories.
-We do this by making the GitHub repository a [remote](reference.html#remote)
-for the local repository.
-The home page of the repository on GitHub includes
-the string we need to identify it:
+The home page of the repository on GitHub includes the URL we need to identify it:
 
 ![Where to Find Repository URL on GitHub](fig/github-find-repo-string.png)
 
 Click on the 'HTTPS' link to change the [protocol](reference.html#protocol) from SSH to HTTPS.
 
-> ## HTTPS vs SSH {.callout}
->
-> We use HTTPS here because it does not require additional configuration.
-> After the workshop you may want to set up SSH access, which is a bit more
-> secure, by following one of the great tutorials from
-> [GitHub](https://help.github.com/articles/generating-ssh-keys),
-> [Atlassian/BitBucket](https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git)
-> and [GitLab](https://about.gitlab.com/2014/03/04/add-ssh-key-screencast/)
-> (this one has a screencast).
-
 ![Changing the Repository URL on GitHub](fig/github-change-repo-string.png)
 
-Copy that URL from the browser,
-go into the local `planets` repository,
+Copy that URL from the browser.
+Now we need to tell Git about this new remote repo. Go into your local `planets` directory
 and run this command:
 
 ~~~ {.bash}
 $ git remote add origin https://github.com/vlad/planets
 ~~~
 
-Make sure to use the URL for your repository rather than Vlad's:
-the only difference should be your username instead of `vlad`.
+Make sure to use the URL for your repository rather than Vlad's. This will tell your local Git repo that we want to add a remote repository at this address that is going to be a copy of our repo. By convention, the main remote repository is called `origin`, but you can name a remote anything you want. It's best to have a designated `origin` remote, though.
 
 We can check that the command has worked by running `git remote -v`:
 
@@ -95,13 +84,7 @@ origin   https://github.com/vlad/planets.git (push)
 origin   https://github.com/vlad/planets.git (fetch)
 ~~~
 
-The name `origin` is a local nickname for your remote repository:
-we could use something else if we wanted to,
-but `origin` is by far the most common choice.
-
-Once the nickname `origin` is set up,
-this command will push the changes from our local repository
-to the repository on GitHub:
+Remember: we haven't actually put anything in that remote repository yet. So far, we've only told our local Git repository where the remote one is located. So let's push our local repo to the remote `origin`:
 
 ~~~ {.bash}
 $ git push origin master
@@ -116,6 +99,20 @@ To https://github.com/vlad/planets
  * [new branch]      master -> master
 Branch master set up to track remote branch master from origin.
 ~~~
+
+> ## What is branch master? {.callout}
+>
+> We could certainly use Git with just SHAs as our labels for our work, and ask Git what label went with which commit went with which set. But this isn't really the way we usually work, is it?
+>
+> Usually you're trying to accomplish a particular task and you know you're going to make some changes to the repository to achieve this. It'd be nice to have a human-readable label for those changes, to make it easier to visualize and to make it easier to share with others. Branches let us achieve this.
+>
+> Think of the SHAs as our trail of breadcrumbs that we are leaving behind us as we work. When we make a branch, we are changing to a different type of breadcrumb: maybe we start dropping pieces of pumpernickel behind us instead of sourdough.
+>
+> When you start your new branch `pumpernickel`, you keep the trail of commits that you made before you branched, but any new commits you make will be using the pumpernickel crumbs.
+>
+> ![Branches let you note which trail of commits you're making](fig/branch.svg)
+>
+> The original trail of breadcrumbs, the sourdough ones in this analogy, have the default branch name of `master`. It's a good practice to keep `master` as the base branch of all the work you do in a repository, and make new branches to do work on new subprojects.
 
 > ## Proxy {.callout}
 >
