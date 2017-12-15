@@ -12,11 +12,13 @@ keypoints:
 ---
 
 When we use Git on a new computer for the first time,
-we need to configure a few things. Below are a few examples
+we need to configure a few things. Below are six examples
 of configurations we will set as we get started with Git:
 
-*   our name and email address,
-*   to colorize our output,
+*   our name,
+*   our email address,
+*   colorizing our output,
+*   setting our line ending encodings based on our operating system,
 *   what our preferred text editor is,
 *   and that we want to use these settings globally (i.e. for every project)
 
@@ -99,7 +101,7 @@ It is possible to reconfigure the text editor for Git whenever you want to chang
 > Note that `vim` is the default editor for many programs. If you haven't used `vim` before and wish to exit a session, type `Esc` then `:q!` and `Enter`.
 {: .callout}
 
-The four commands we just ran above only need to be run once: the flag `--global` tells Git
+The six commands we just ran above only need to be run once: the flag `--global` tells Git
 to use the settings for every project, in your user account, on this computer.
 
 You can check your settings at any time:
