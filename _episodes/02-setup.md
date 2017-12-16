@@ -12,11 +12,13 @@ keypoints:
 ---
 
 When we use Git on a new computer for the first time,
-we need to configure a few things. Below are a few examples
+we need to configure a few things. Below are six examples
 of configurations we will set as we get started with Git:
 
-*   our name and email address,
-*   to colorize our output,
+*   our name,
+*   our email address,
+*   colorizing our output,
+*   setting our line ending encodings based on our operating system,
 *   what our preferred text editor is,
 *   and that we want to use these settings globally (i.e. for every project)
 
@@ -74,7 +76,7 @@ in a later lesson will include this information.
 For these lessons, we will be interacting with [GitHub](http://github.com/) and so the email address used should be the same as the one used when setting up your GitHub account. If you are concerned about privacy, please review [GitHub's instructions for keeping your email address private][git-privacy]. 
 If you elect to use a private email address with GitHub, then use that same email address for the `user.email` value, e.g. `username@users.noreply.github.com` replacing `username` with your GitHub one. You can change the email address later on by using the `git config` command again.
 
-Dracula also has to set his favorite text editor, following this table:
+Dracula also has to set his favorite text editor. You reconfigure the text editor for Git whenever you want to change it. Here's a list of options for text editors:
 
 | Editor             | Configuration command                            |
 |:-------------------|:-------------------------------------------------|
@@ -99,7 +101,7 @@ It is possible to reconfigure the text editor for Git whenever you want to chang
 > Note that `vim` is the default editor for many programs. If you haven't used `vim` before and wish to exit a session, type `Esc` then `:q!` and `Enter`.
 {: .callout}
 
-The four commands we just ran above only need to be run once: the flag `--global` tells Git
+The six commands we just ran above only need to be run once: the flag `--global` tells Git
 to use the settings for every project, in your user account, on this computer.
 
 You can check your settings at any time:
